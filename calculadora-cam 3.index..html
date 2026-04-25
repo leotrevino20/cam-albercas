@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CAM Albercas">
+<meta name="theme-color" content="#020f1e">
+<title>CAM — Constructora de Albercas Monterrey</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul-deep: #020f1e;
+    --azul-accent: #0a7abf;
+    --aqua: #00d4ff;
+    --aqua-soft: rgba(0, 212, 255, 0.12);
+    --white: #f0f8ff;
+    --white-dim: rgba(240, 248, 255, 0.6);
+    --white-faint: rgba(240, 248, 255, 0.08);
+    --sat: env(safe-area-inset-top, 44px);
+    --sab: env(safe-area-inset-bottom, 20px);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { height: -webkit-fill-available; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--azul-deep);
+    color: var(--white);
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    cursor: pointer; /* activa :active en iOS Safari */
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(0,120,200,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 80%, rgba(0,212,255,0.10) 0%, transparent 55%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: calc(var(--sat) + 4px);
+    background: linear-gradient(90deg, var(--aqua), var(--azul-accent), var(--aqua));
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+    z-index: 100;
+  }
+  @keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
+
+  /* HERO */
+  .hero {
+    position: relative; z-index: 1; text-align: center;
+    padding: calc(var(--sat) + 48px) 20px 28px;
+  }
+  .cam-logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 14px; animation: fadeUp 0.5s ease both;
+  }
+  .cam-monogram {
+    width: 46px; height: 46px;
+    background: linear-gradient(135deg, var(--azul-accent), var(--aqua));
+    border-radius: 13px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 900; color: #fff;
+    box-shadow: 0 4px 18px rgba(0,150,230,0.4); flex-shrink: 0;
+  }
+  .cam-name-main { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; text-align: left; }
+  .cam-name-sub { font-size: 0.62rem; color: var(--aqua); letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
+  .hero-badge {
+    display: inline-block;
+    background: var(--aqua-soft); border: 1px solid rgba(0,212,255,0.3);
+    color: var(--aqua); font-size: 10px; font-weight: 500;
+    letter-spacing: 3px; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 50px; margin-bottom: 12px;
+    animation: fadeUp 0.6s ease 0.05s both;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 9vw, 2.8rem); font-weight: 900; line-height: 1.1;
+    animation: fadeUp 0.7s ease 0.1s both;
+  }
+  .hero h1 span { color: var(--aqua); }
+  .hero p { margin-top: 8px; color: var(--white-dim); font-size: 0.88rem; font-weight: 300; animation: fadeUp 0.7s ease 0.15s both; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+  /* CONTAINER */
+  .container {
+    position: relative; z-index: 1;
+    max-width: 480px; margin: 0 auto;
+    padding: 0 14px calc(var(--sab) + 40px);
+  }
+
+  /* CARDS */
+  .card {
+    background: linear-gradient(135deg, rgba(6,51,82,0.78) 0%, rgba(4,24,40,0.94) 100%);
+    border: 1px solid rgba(0,212,255,0.13);
+    border-radius: 20px; padding: 20px 18px; margin-bottom: 12px;
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    animation: fadeUp 0.6s ease both;
+  }
+  .card-header { display: flex; align-items: center; gap: 11px; margin-bottom: 18px; }
+  .card-icon {
+    width: 38px; height: 38px; background: var(--aqua-soft);
+    border: 1px solid rgba(0,212,255,0.25); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; flex-shrink: 0;
+  }
+  .card-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; }
+  .card-subtitle { font-size: 0.72rem; color: var(--white-dim); margin-top: 1px; }
+
+  /* INPUTS */
+  .inputs-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 0.66rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--aqua); }
+  .field input {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(0,212,255,0.22); border-radius: 11px;
+    padding: 13px 10px; color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px; /* evita zoom automático en iOS */
+    text-align: center; outline: none;
+    -webkit-appearance: none; appearance: none; width: 100%;
+    transition: border-color 0.2s;
+  }
+  .field input:focus { border-color: var(--aqua); background: rgba(0,212,255,0.09); }
+
+  /* ACABADO */
+  .acabado-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .acabado-btn {
+    padding: 16px 10px 14px; border-radius: 14px;
+    border: 2px solid rgba(0,212,255,0.18);
+    background: rgba(255,255,255,0.04);
+    color: var(--white-dim); font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; font-weight: 500; text-align: center; line-height: 1.4;
+    cursor: pointer;
+    -webkit-user-select: none; user-select: none;
+    -webkit-appearance: none; appearance: none; outline: none;
+    display: block; width: 100%;
+    transition: border-color 0.18s, background 0.18s, color 0.18s;
+  }
+  .acabado-btn .btn-emoji { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+  .acabado-btn .btn-price { font-size: 0.68rem; color: var(--white-dim); margin-top: 3px; display: block; }
+  .acabado-btn.active { border-color: var(--aqua); background: var(--aqua-soft); color: var(--white); }
+  .acabado-btn.active .btn-price { color: var(--aqua); }
+  .acabado-btn:active { opacity: 0.75; transform: scale(0.97); }
+
+  /* EXTRAS */
+  .extra-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 0; border-bottom: 1px solid var(--white-faint);
+    -webkit-user-select: none; user-select: none;
+  }
+  .extra-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .extra-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+  .extra-name { font-size: 0.88rem; font-weight: 500; }
+  .extra-desc { font-size: 0.7rem; color: var(--white-dim); }
+
+  /* Counter */
+  .counter { display: flex; align-items: center; }
+  .counter-btn {
+    width: 44px; height: 44px;
+    background: var(--aqua-soft); border: 1px solid rgba(0,212,255,0.3);
+    border-radius: 50%; color: var(--aqua);
+    font-size: 22px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; -webkit-user-select: none; user-select: none;
+    -webkit-appearance: none; appearance: none; outline: none;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .counter-btn:active { background: rgba(0,212,255,0.3); transform: scale(0.9); }
+  .counter-num { min-width: 44px; text-align: center; font-size: 1.15rem; font-weight: 600; }
+
+  /* Toggle iOS */
+  .ios-toggle {
+    position: relative; width: 52px; height: 32px; flex-shrink: 0;
+    cursor: pointer; -webkit-user-select: none; user-select: none;
+    display: block;
+  }
+  .ios-toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .ios-track {
+    position: absolute; inset: 0; background: rgba(255,255,255,0.15);
+    border-radius: 50px; transition: background 0.28s; pointer-events: none;
+  }
+  .ios-thumb {
+    position: absolute; left: 2px; top: 2px; width: 28px; height: 28px;
+    background: white; border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    transition: transform 0.28s cubic-bezier(.34,1.4,.64,1); pointer-events: none;
+  }
+  .ios-toggle input:checked ~ .ios-track { background: #34c759; }
+  .ios-toggle input:checked ~ .ios-thumb { transform: translateX(20px); }
+
+  /* BOTÓN CALCULAR */
+  .btn-calc {
+    width: 100%; padding: 17px;
+    background: linear-gradient(135deg, var(--azul-accent), var(--aqua));
+    border: none; border-radius: 16px; color: #fff;
+    font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600;
+    cursor: pointer; box-shadow: 0 8px 26px rgba(0,150,230,0.3); margin-top: 4px;
+    -webkit-appearance: none; appearance: none; outline: none;
+    transition: transform 0.12s, box-shadow 0.2s;
+    -webkit-user-select: none; user-select: none;
+  }
+  .btn-calc:active { transform: scale(0.97); box-shadow: 0 3px 12px rgba(0,150,230,0.2); }
+
+  /* RESULTADO */
+  .resultado-card { display: none; margin-top: 12px; }
+  .resultado-card.visible { display: block; animation: fadeUp 0.45s ease both; }
+
+  .dims-pill {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    font-size: 0.82rem; color: var(--white-dim); margin-bottom: 16px;
+  }
+  .dims-pill strong { color: var(--white); }
+  .dims-pill .sep { color: var(--aqua); font-weight: 700; }
+
+  .desglose { display: flex; flex-direction: column; gap: 9px; margin-bottom: 18px; }
+  .ditem {
+    background: var(--white-faint); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px; padding: 13px 15px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .ditem.hi { border-color: rgba(0,212,255,0.3); background: var(--aqua-soft); }
+  .ditem-label { font-size: 0.8rem; color: var(--white-dim); }
+  .ditem.hi .ditem-label { color: var(--aqua); font-weight: 500; }
+  .ditem-val { font-size: 1rem; font-weight: 600; }
+
+  .total-box {
+    background: linear-gradient(135deg, rgba(0,122,191,0.35), rgba(0,212,255,0.15));
+    border: 1px solid rgba(0,212,255,0.45); border-radius: 18px;
+    padding: 24px 18px; text-align: center;
+  }
+  .total-label { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--aqua); margin-bottom: 8px; }
+  .total-value { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 8vw, 2.8rem); font-weight: 900; color: var(--white); line-height: 1; }
+  .total-value span { color: var(--aqua); }
+  .total-note { margin-top: 10px; font-size: 0.7rem; color: var(--white-dim); }
+
+  footer {
+    position: relative; z-index: 1; text-align: center;
+    padding: 20px 20px calc(var(--sab) + 16px);
+    color: rgba(255,255,255,0.18); font-size: 0.7rem; letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"></div>
+
+<div class="hero">
+  <div class="cam-logo">
+    <div class="cam-monogram">CAM</div>
+    <div>
+      <div class="cam-name-main">Constructora de Albercas</div>
+      <div class="cam-name-sub">Monterrey · MX</div>
+    </div>
+  </div>
+  <div class="hero-badge">Cotizador Profesional</div>
+  <h1>Calculadora<br><span>CAM</span></h1>
+  <p>Presupuesto estimado al instante</p>
+</div>
+
+<div class="container">
+
+  <!-- 1. DIMENSIONES -->
+  <div class="card" style="animation-delay:.08s">
+    <div class="card-header">
+      <div class="card-icon">📐</div>
+      <div>
+        <div class="card-title">Dimensiones</div>
+        <div class="card-subtitle">Medidas en metros</div>
+      </div>
+    </div>
+    <div class="inputs-grid">
+      <div class="field">
+        <label>Largo</label>
+        <input type="number" id="largo" value="6" min="1" step="0.5" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label>Ancho</label>
+        <input type="number" id="ancho" value="3" min="1" step="0.5" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label>Prof.</label>
+        <input type="number" id="prof" value="1.4" min="0.5" step="0.1" inputmode="decimal">
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. ACABADO -->
+  <div class="card" style="animation-delay:.16s">
+    <div class="card-header">
+      <div class="card-icon">🎨</div>
+      <div>
+        <div class="card-title">Acabado</div>
+        <div class="card-subtitle">Revestimiento interior</div>
+      </div>
+    </div>
+    <div class="acabado-btns">
+      <button type="button" class="acabado-btn active" id="btn-pintura" onclick="selAcabado('pintura')">
+        <span class="btn-emoji">🖌️</span>
+        Pintura
+        <span class="btn-price">$11,000 / m²</span>
+      </button>
+      <button type="button" class="acabado-btn" id="btn-mosaico" onclick="selAcabado('mosaico')">
+        <span class="btn-emoji">🟦</span>
+        Mosaico
+        <span class="btn-price">$12,750 / m²</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. EXTRAS -->
+  <div class="card" style="animation-delay:.24s">
+    <div class="card-header">
+      <div class="card-icon">⚡</div>
+      <div>
+        <div class="card-title">Extras</div>
+        <div class="card-subtitle">Iluminación y equipamiento</div>
+      </div>
+    </div>
+
+    <div class="extra-row">
+      <div class="extra-info">
+        <div class="extra-name">💡 Focos LED</div>
+        <div class="extra-desc">$4,000 por foco instalado</div>
+      </div>
+      <div class="counter">
+        <button type="button" class="counter-btn" onclick="cambiarFocos(-1)">−</button>
+        <span class="counter-num" id="focos-display">2</span>
+        <button type="button" class="counter-btn" onclick="cambiarFocos(1)">+</button>
+      </div>
+    </div>
+
+    <div class="extra-row">
+      <div class="extra-info">
+        <div class="extra-name">🌡️ Bomba de Calor</div>
+        <div class="extra-desc">$45,000 instalada</div>
+      </div>
+      <label class="ios-toggle" for="bomba">
+        <input type="checkbox" id="bomba">
+        <span class="ios-track"></span>
+        <span class="ios-thumb"></span>
+      </label>
+    </div>
+  </div>
+
+  <!-- BOTÓN -->
+  <button type="button" class="btn-calc" onclick="calcular()">Calcular Presupuesto →</button>
+
+  <!-- RESULTADO -->
+  <div class="card resultado-card" id="resultado-card">
+    <div class="card-header">
+      <div class="card-icon">💰</div>
+      <div>
+        <div class="card-title">Presupuesto CAM</div>
+        <div class="card-subtitle" id="res-fecha"></div>
+      </div>
+    </div>
+    <div class="dims-pill" id="res-dims"></div>
+    <div class="desglose" id="res-desglose"></div>
+    <div class="total-box">
+      <div class="total-label">Total Estimado</div>
+      <div class="total-value" id="res-total"></div>
+      <div class="total-note">* Sujeto a visita técnica · CAM Monterrey</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>🏊 CAM · Constructora de Albercas Monterrey · Precios en MXN</footer>
+
+<script>
+  var focos = 2;
+  var acabadoSel = 'pintura';
+
+  function selAcabado(tipo) {
+    acabadoSel = tipo;
+    document.getElementById('btn-pintura').classList.toggle('active', tipo === 'pintura');
+    document.getElementById('btn-mosaico').classList.toggle('active', tipo === 'mosaico');
+  }
+
+  function cambiarFocos(d) {
+    focos = Math.max(0, focos + d);
+    document.getElementById('focos-display').textContent = focos;
+  }
+
+  function fmt(n) {
+    return '$' + n.toLocaleString('es-MX');
+  }
+
+  function calcular() {
+    var largo = parseFloat(document.getElementById('largo').value) || 0;
+    var ancho = parseFloat(document.getElementById('ancho').value) || 0;
+    var prof  = parseFloat(document.getElementById('prof').value)  || 0;
+    var bomba = document.getElementById('bomba').checked;
+
+    var PRECIO_PINTURA = 11000;
+    var PRECIO_MOSAICO = 12750;
+    var PRECIO_FOCO    = 4000;
+    var PRECIO_BOMBA   = 45000;
+
+    var area         = largo * ancho;
+    var acabadoTotal = acabadoSel === 'pintura' ? area * PRECIO_PINTURA : area * PRECIO_MOSAICO;
+    var focosTotal   = focos * PRECIO_FOCO;
+    var bombaTotal   = bomba ? PRECIO_BOMBA : 0;
+    var total        = acabadoTotal + focosTotal + bombaTotal;
+
+    var hoy = new Date().toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'});
+    document.getElementById('res-fecha').textContent = hoy;
+
+    document.getElementById('res-dims').innerHTML =
+      '<strong>' + largo + 'm</strong><span class="sep"> × </span><strong>' + ancho + 'm</strong><span class="sep"> = </span><strong>' + area.toFixed(2) + ' m²</strong> &nbsp;·&nbsp; Prof. <strong>' + prof + 'm</strong>';
+
+    var items =
+      '<div class="ditem hi">' +
+        '<span class="ditem-label">' + (acabadoSel === 'pintura' ? '🖌️ Pintura' : '🟦 Mosaico') + '</span>' +
+        '<span class="ditem-val">' + fmt(acabadoTotal) + '</span>' +
+      '</div>' +
+      '<div class="ditem">' +
+        '<span class="ditem-label">💡 Focos LED (' + focos + ')</span>' +
+        '<span class="ditem-val">' + fmt(focosTotal) + '</span>' +
+      '</div>';
+    if (bomba) {
+      items +=
+        '<div class="ditem">' +
+          '<span class="ditem-label">🌡️ Bomba de Calor</span>' +
+          '<span class="ditem-val">' + fmt(bombaTotal) + '</span>' +
+        '</div>';
+    }
+    document.getElementById('res-desglose').innerHTML = items;
+
+    document.getElementById('res-total').innerHTML =
+      '<span>' + fmt(total) + '</span> <small style="font-size:.85rem;color:var(--white-dim)">MXN</small>';
+
+    var card = document.getElementById('resultado-card');
+    card.classList.add('visible');
+    setTimeout(function(){ card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 120);
+  }
+</script>
+</body>
+</html>
